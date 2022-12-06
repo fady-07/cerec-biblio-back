@@ -19,13 +19,17 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    User addNewUser(String username,String nom,String prenom, String email, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+    User addNewUser(String firtName,String lastName,String email, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException;
 
-    User updateUser(String currentUsername, String newUsername, String newEmail, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+    User updateUser(String currentUsername, String newUsername, String newEmail,String newPassword, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+
+    User updateUsernameAndPassword(String currentUsername,String email, String password, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
     void deleteUser(String username) throws IOException;
 
     void resetPassword(String email) throws MessagingException, EmailNotFoundException;
 
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+
+
 }

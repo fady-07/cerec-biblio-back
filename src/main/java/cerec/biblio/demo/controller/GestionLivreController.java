@@ -39,7 +39,7 @@ public class GestionLivreController {
 
 
     @PostMapping("/add-livre")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public LivreResponse addLivre(@RequestParam("livreRequest") String livre,
                                   @RequestParam("image") CommonsMultipartFile image,
                                   @RequestParam("pdf") CommonsMultipartFile file) throws IOException {
@@ -55,6 +55,7 @@ public class GestionLivreController {
 
 
     @PostMapping("/update-livre")
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<LivreResponse> updateLivre(@RequestParam(required = false, name = "image") MultipartFile image,
                                            @RequestParam(required = false, name = "pdf") MultipartFile file,
                                            @RequestParam("livreRequest") String livre) throws IOException {
@@ -83,25 +84,25 @@ public class GestionLivreController {
 
 
     @PostMapping("/add-categorie")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<CategorieResponse> addCategorie(@RequestBody CategorieRquest categorieRquest){
         return livreService.addCategorie(categorieRquest);
     }
 
     @PostMapping("/add-sous-categorie")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<SousCategorueResponse> addSousCategorie(@RequestBody SousCategorieRequest sousCategorieRequest){
         return livreService.addSousCategorie(sousCategorieRequest);
     }
 
     @PostMapping("/add-editeur")
-    /*@PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<EditeurResponse> addEditeur(@RequestBody EditeurRequest editeurRequest){
         return livreService.addEditeur(editeurRequest);
     }
 
     @PostMapping("/add-auteur")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<AuteurResponse> addAuteur(@RequestBody AuteurRequest auteurRequest){
         return livreService.addAuteur(auteurRequest);
     }
@@ -160,31 +161,31 @@ public class GestionLivreController {
 
     /*delete*/
     @DeleteMapping("/delete-livre/{id}")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<LivreResponse> deleteLivre(@PathVariable("id") Long idLivre) {
         return livreService.deleteLivre(idLivre);
     }
 
     @DeleteMapping("/delete-categorie/{id}")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<CategorieResponse> deleteCategorie(@PathVariable("id") Long idCategorie) {
         return livreService.deleteCategorie(idCategorie);
     }
 
     @DeleteMapping("/delete-sous-categorie/{id}")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<CategorieResponse> deleteSousCategorie(@PathVariable("id") Long idSousCategorie) {
         return livreService.deleteSousCategorie(idSousCategorie);
     }
 
     @DeleteMapping("/delete-auteur/{id}")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<CategorieResponse> deleteAuteur(@PathVariable("id") Long idAuteur) {
         return livreService.deleteAuteur(idAuteur);
     }
 
     @DeleteMapping("/delete-editeur/{id}")
-    /*@PreAuthorize("hasPermission('ADMIN')")*/
+    @PreAuthorize("hasAnyAuthority('user:create')")
     public List<CategorieResponse> deleteEditeur(@PathVariable("id") Long idEditeur) {
         return livreService.deleteEditeur(idEditeur);
     }

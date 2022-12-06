@@ -2,7 +2,6 @@ package cerec.biblio.demo.Constant;
 
 public class SecurityConstant {
     public static final long EXPIRATION_TIME=60000;
-    /*public static final long EXPIRATION_TIME=423_000_000;*/
     public static final String TOKEN_PREFIX="Bearer ";
     public static final String JWT_TOKEN_HEADER="Jwt-Token";
     public static final String REFRESH_TOKEN="Refresh-Token";

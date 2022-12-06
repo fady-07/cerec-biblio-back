@@ -73,17 +73,14 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addNewUser(/*@RequestParam("firstName") String firstName,
-                                           @RequestParam("lastName") String lastName,*/
-                                           @RequestParam("username") String username,
-                                           @RequestParam("nom") String nom,
-                                           @RequestParam("prenom") String prenom,
+    public ResponseEntity<User> addNewUser(@RequestParam("firstName") String firstName,
+                                           @RequestParam("lastName") String lastName,
                                            @RequestParam("email") String email,
                                            @RequestParam("role") String role,
                                            @RequestParam("isActive") String isActive,
                                            @RequestParam("isNonLocked") String isNonLocked,
-                                           @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
-        User newUser = userService.addNewUser(username,nom,prenom,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+                                           @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException, MessagingException {
+        User newUser = userService.addNewUser(firstName,lastName,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
         return new ResponseEntity<>(newUser, OK);
     }
 
@@ -93,13 +90,24 @@ public class UserController {
                                        @RequestParam("lastName") String lastName,*/
                                        @RequestParam("username") String username,
                                        @RequestParam("email") String email,
+                                       @RequestParam("updatedPassword") String password,
                                        @RequestParam("role") String role,
                                        @RequestParam("isActive") String isActive,
                                        @RequestParam("isNonLocked") String isNonLocked,
                                        @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
-        User updatedUser = userService.updateUser(currentUsername,username,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+        User updatedUser = userService.updateUser(currentUsername,username,email,password, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
         return new ResponseEntity<>(updatedUser, OK);
     }
+
+    @PostMapping("/update-username-and-password")
+    public ResponseEntity<User> updateUsernameAndPassword(@RequestParam("currentUsername") String currentUsername,
+                                       @RequestParam(value = "password", required = false) String password, @RequestParam(value = "email") String email,
+                                       @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
+        User updatedUser = userService.updateUsernameAndPassword(currentUsername,email,password, profileImage);
+        return new ResponseEntity<>(updatedUser, OK);
+    }
+
+
 
     @GetMapping("/find/{username}")
     public ResponseEntity<User> getUser(@PathVariable("username") String username) {

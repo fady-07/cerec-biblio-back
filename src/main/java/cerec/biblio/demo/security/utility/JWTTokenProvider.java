@@ -26,7 +26,7 @@ import static java.util.Arrays.stream;
 
 @Component
 public class JWTTokenProvider {
-    @Value("${jwt.secret}")
+    @Value("${le.secret}")
     private String secret;
 
     public String generateJwtToken(UserPrincipal userPrincipal){

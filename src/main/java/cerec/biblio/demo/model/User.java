@@ -44,4 +44,8 @@ public class User {
 	private String[] authorities;
 	private boolean isActive;
 	private boolean isNotLocked;
+
+
+	@Transient
+	private String updatedPassword;
 }
